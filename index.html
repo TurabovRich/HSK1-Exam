@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSK 1 · Пробный экзамен</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#a3201c; --red-dark:#6e1210; --red-soft:#c8463b;
+  --gold:#c9993a; --gold-light:#e8c87a;
+  --paper:#f7f0e1; --paper-2:#efe4cc; --ink:#2b1d14; --ink-soft:#5b4636;
+  --jade:#2f7a5b; --jade-soft:#e3f1ea; --wrong:#b3261e; --wrong-soft:#fbe5e2;
+  --card:#fffaf0; --line:#dcc9a3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'PT Serif','Noto Serif SC',Georgia,serif;
+  color:var(--ink); background:var(--paper); min-height:100vh; overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(201,153,58,.18), transparent 55%),
+    radial-gradient(ellipse at 100% 60%, rgba(163,32,28,.08), transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='70' viewBox='0 0 120 70'%3E%3Cg fill='none' stroke='%23b8862e' stroke-opacity='.13' stroke-width='1.6'%3E%3Cpath d='M10 45c0-10 14-12 18-4 3-9 18-9 19 1 8-3 13 5 8 10H14c-3 0-4-3-4-7z'/%3E%3Cpath d='M70 20c0-8 11-10 14-3 3-7 14-7 15 1 6-2 10 4 6 8H73c-2 0-3-3-3-6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.zh,.hz{font-family:'Noto Serif SC',serif}
+.brush{font-family:'Ma Shan Zheng','Noto Serif SC',serif;font-weight:400}
+
+/* decorative fixed layers */
+.mountains{position:fixed;left:0;right:0;bottom:0;height:200px;pointer-events:none;z-index:0;opacity:.55}
+.lantern{position:fixed;top:-6px;width:58px;z-index:1;pointer-events:none;transform-origin:top center;animation:sway 4.5s ease-in-out infinite}
+.lantern.l{left:18px}.lantern.r{right:18px;animation-delay:-2.2s}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.blossom{position:fixed;top:0;right:70px;width:260px;opacity:.85;pointer-events:none;z-index:0}
+.petal{position:fixed;top:-20px;width:12px;height:12px;background:#f2a7b0;border-radius:12px 0 12px 0;opacity:.75;pointer-events:none;z-index:0;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(-120px,110vh) rotate(540deg)}}
+@media (max-width:760px){.lantern{width:40px}.blossom{width:150px;right:40px;opacity:.5}}
+
+.wrap{position:relative;z-index:2;max-width:920px;margin:0 auto;padding:24px 16px 160px}
+
+/* ===== start screen ===== */
+.hero{margin-top:40px;background:var(--card);border:2px solid var(--gold);border-radius:6px;position:relative;padding:44px 40px 36px;box-shadow:0 18px 50px rgba(110,18,16,.15)}
+.hero::before{content:"";position:absolute;inset:8px;border:1px solid var(--line);border-radius:3px;pointer-events:none}
+.hero .corner{position:absolute;width:40px;height:40px;border-color:var(--red);border-style:solid}
+.corner.tl{top:-2px;left:-2px;border-width:5px 0 0 5px}.corner.tr{top:-2px;right:-2px;border-width:5px 5px 0 0}
+.corner.bl{bottom:-2px;left:-2px;border-width:0 0 5px 5px}.corner.br{bottom:-2px;right:-2px;border-width:0 5px 5px 0}
+.seal{position:absolute;top:26px;right:30px;width:74px;height:74px;background:var(--red);color:#fff4dc;display:grid;place-items:center;border-radius:8px;transform:rotate(6deg);font-size:26px;line-height:1.05;text-align:center;box-shadow:inset 0 0 0 3px var(--red),inset 0 0 0 5px #fff4dc}
+.hero h1{font-size:54px;color:var(--red);line-height:1.15;margin-bottom:4px}
+.hero .sub{font-size:20px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:26px}
+.greet{font-size:18.5px;line-height:1.7;border-left:4px solid var(--red);padding:4px 0 4px 18px;margin-bottom:26px}
+.greet b{color:var(--red-dark)}
+.greet .sign{display:block;margin-top:10px;font-style:italic;color:var(--ink-soft)}
+.info{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.info div{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px;text-align:center}
+.info strong{display:block;font-size:26px;color:var(--red)}
+.info span{font-size:13.5px;color:var(--ink-soft)}
+.rules{background:var(--paper);border-radius:6px;padding:16px 20px;margin-bottom:24px;font-size:15.5px;line-height:1.65}
+.rules h3{font-size:16px;color:var(--red-dark);margin-bottom:6px}
+.rules li{margin-left:20px}
+.namebox{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.namebox label{font-weight:700}
+.namebox input{flex:1;min-width:200px;padding:12px 14px;font-size:17px;border:1.5px solid var(--line);border-radius:6px;background:#fff;font-family:inherit}
+.namebox input:focus{outline:none;border-color:var(--red)}
+.btn{font-family:inherit;cursor:pointer;border:none;border-radius:6px;font-size:18px;padding:14px 30px;transition:transform .15s,box-shadow .15s,background .15s}
+.btn-red{background:linear-gradient(180deg,var(--red-soft),var(--red));color:#fff7e3;box-shadow:0 6px 0 var(--red-dark),0 10px 20px rgba(110,18,16,.3)}
+.btn-red:hover{transform:translateY(-2px)}
+.btn-red:active{transform:translateY(4px);box-shadow:0 2px 0 var(--red-dark)}
+.btn-ghost{background:transparent;border:1.5px solid var(--red);color:var(--red)}
+.btn-ghost:hover{background:rgba(163,32,28,.07)}
+.start-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+/* ===== top bar ===== */
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--red),var(--red-dark));color:#fff4dc;box-shadow:0 4px 16px rgba(0,0,0,.25);display:none}
+.topbar .in{max-width:920px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topbar .logo{font-size:24px;color:var(--gold-light);white-space:nowrap}
+.timer{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;background:rgba(0,0,0,.22);padding:4px 12px;border-radius:5px;border:1px solid var(--gold);min-width:92px;text-align:center}
+.timer.warn{background:#f2c14e;color:var(--red-dark);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
+.progress{font-size:14.5px;opacity:.95}
+.player{display:flex;align-items:center;gap:8px;flex:1;min-width:220px}
+.player button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gold-light);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:14px;flex:none}
+.player .bar{flex:1;height:6px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.player .bar i{display:block;height:100%;width:0;background:var(--gold-light)}
+.player .t{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.finish-btn{background:var(--gold-light);color:var(--red-dark);font-weight:700;padding:8px 16px;font-size:15px}
+.nav{display:flex;gap:6px}
+.nav a{color:#fff4dc;text-decoration:none;font-size:14px;border:1px solid rgba(232,200,122,.6);padding:5px 10px;border-radius:4px}
+.nav a:hover{background:rgba(255,255,255,.12)}
+
+/* ===== exam ===== */
+#exam{display:none}
+.section-title{text-align:center;margin:44px 0 6px}
+.section-title .brush{font-size:48px;color:var(--red)}
+.section-title p{color:var(--ink-soft);font-size:16px}
+.part{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:26px 24px;margin:26px 0;box-shadow:0 6px 22px rgba(80,40,10,.07);position:relative}
+.part::after{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;background:var(--red);border-radius:0 3px 3px 0}
+.part h3{font-family:'Noto Serif SC',serif;font-size:22px;color:var(--red-dark);margin-bottom:4px}
+.part .instr{font-size:15px;color:var(--ink-soft);margin-bottom:18px;line-height:1.55}
+.example{background:var(--paper);border:1px dashed var(--line);border-radius:6px;padding:12px 14px;margin-bottom:18px;font-size:15px;color:var(--ink-soft)}
+.example b{color:var(--red-dark)}
+.q{display:flex;gap:16px;align-items:center;padding:16px 0;border-top:1px solid #eadfc6}
+.q:first-of-type{border-top:none}
+.qnum{flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper-2);display:grid;place-items:center;font-weight:700;font-size:17px;color:var(--red-dark);border:1.5px solid var(--line)}
+.q.done .qnum{background:var(--red);color:#fff4dc;border-color:var(--red)}
+.qbody{flex:1;min-width:0}
+.qimg{height:110px;width:auto;max-width:180px;object-fit:contain;background:#fff;border-radius:6px;padding:4px;border:1px solid #eee}
+.tf{display:flex;gap:10px}
+.choice{font-family:inherit;cursor:pointer;background:#fff;border:2px solid var(--line);border-radius:8px;padding:10px 16px;font-size:18px;color:var(--ink);transition:all .15s;min-width:56px}
+.choice:hover{border-color:var(--red-soft);transform:translateY(-1px)}
+.choice.sel{background:var(--red);border-color:var(--red);color:#fff7e3;box-shadow:0 4px 12px rgba(163,32,28,.3)}
+.pic3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.picopt{cursor:pointer;background:#fff;border:2.5px solid var(--line);border-radius:10px;padding:8px;text-align:center;transition:all .15s;font-family:inherit;color:var(--ink)}
+.picopt img{width:100%;height:120px;object-fit:contain;display:block}
+.picopt span{display:block;font-weight:700;font-size:17px;margin-top:4px}
+.picopt:hover{border-color:var(--red-soft)}
+.picopt.sel{border-color:var(--red);box-shadow:0 0 0 3px rgba(163,32,28,.2);background:#fff5f0}
+.picopt.sel span{color:var(--red)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.gallery figure{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
+.gallery img{width:100%;height:120px;object-fit:contain}
+.gallery figcaption{font-weight:700;color:var(--red-dark);font-size:18px}
+.gallery figure.ex{opacity:.6}
+.letters{display:flex;gap:8px;flex-wrap:wrap}
+.letters .choice{min-width:48px;padding:8px 12px}
+.choice.exl{opacity:.55}
+.txt3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.txt3 .choice{text-align:left;padding:10px 14px}
+.txt3 .choice b{margin-right:8px}
+ruby{ruby-position:over}
+rt{font-family:'PT Serif',serif;font-size:.55em;color:var(--ink-soft);letter-spacing:.02em}
+.choice.sel rt{color:#ffe8c8}
+.sent{font-family:'Noto Serif SC',serif;font-size:22px;line-height:2.2;margin-bottom:8px}
+.word{font-family:'Noto Serif SC',serif;font-size:26px;min-width:90px;text-align:center}
+.rowflex{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.answers-list{background:var(--paper);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.answers-list div{font-family:'Noto Serif SC',serif;font-size:20px;line-height:2.1}
+.answers-list b{color:var(--red-dark);font-family:'PT Serif',serif;margin-right:6px}
+.answers-list .ex{opacity:.55}
+.wordbank{display:flex;flex-wrap:wrap;gap:10px;background:var(--paper);padding:12px 14px;border-radius:8px;margin-bottom:16px}
+.wordbank span{font-family:'Noto Serif SC',serif;font-size:21px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 12px}
+.wordbank span b{font-family:'PT Serif',serif;color:var(--red-dark);margin-right:4px}
+.wordbank .ex{opacity:.5}
+.blank{display:inline-block;min-width:54px;border-bottom:2px solid var(--red);text-align:center;color:var(--red);font-weight:700}
+.dlg{line-height:2.2}
+.dlg .who{font-family:'PT Serif',serif;color:var(--ink-soft);font-size:16px;margin-right:4px}
+.submit-zone{text-align:center;margin:40px 0}
+.audio-note{background:#fff3d6;border:1px solid var(--gold);border-radius:8px;padding:12px 16px;margin:16px 0;font-size:15px;line-height:1.55}
+
+/* ===== results ===== */
+#results{display:none}
+.res-hero{margin-top:30px;background:var(--card);border:2px solid var(--gold);border-radius:8px;padding:34px 30px;text-align:center;position:relative;box-shadow:0 18px 50px rgba(110,18,16,.15)}
+.res-hero .verdict{font-size:56px;line-height:1.2}
+.res-hero .verdict.pass{color:var(--jade)}
+.res-hero .verdict.fail{color:var(--red)}
+.res-hero .vru{font-size:19px;margin-bottom:20px;color:var(--ink-soft)}
+.score-ring{width:190px;height:190px;margin:0 auto 18px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.score-ring .num b{font-size:46px;color:var(--ink);display:block;line-height:1}
+.score-ring .num span{font-size:14px;color:var(--ink-soft)}
+.sub-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:620px;margin:0 auto 14px}
+.sub-scores div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px}
+.sub-scores b{display:block;font-size:28px;color:var(--red-dark)}
+.sub-scores span{font-size:14px;color:var(--ink-soft)}
+.res-meta{font-size:15px;color:var(--ink-soft);margin-top:8px}
+.parts-table{width:100%;border-collapse:collapse;margin:22px 0 6px;font-size:15.5px;background:var(--card);border-radius:8px;overflow:hidden}
+.parts-table th,.parts-table td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+.parts-table th{background:var(--red);color:#fff4dc;font-weight:400}
+.parts-table td.c{text-align:center}
+.minibar{height:8px;background:#eadfc6;border-radius:4px;overflow:hidden;min-width:80px}
+.minibar i{display:block;height:100%;background:var(--jade)}
+.grid40{display:grid;grid-template-columns:repeat(20,1fr);gap:5px;margin:22px 0}
+.grid40 a{aspect-ratio:1;display:grid;place-items:center;font-size:12.5px;border-radius:5px;text-decoration:none;color:#fff;font-weight:700}
+.grid40 a.ok{background:var(--jade)}.grid40 a.bad{background:var(--wrong)}.grid40 a.skip{background:#a89a84}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+.filters .choice{font-size:15px;padding:8px 14px}
+.rcard{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--jade);border-radius:8px;padding:18px 20px;margin:14px 0;box-shadow:0 4px 14px rgba(80,40,10,.06)}
+.rcard.bad{border-left-color:var(--wrong)}
+.rcard.skip{border-left-color:#a89a84}
+.rcard .head{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.rcard .tag{font-size:13px;padding:3px 10px;border-radius:20px;font-weight:700}
+.tag.ok{background:var(--jade-soft);color:var(--jade)}.tag.bad{background:var(--wrong-soft);color:var(--wrong)}.tag.skip{background:#eee6d8;color:#6d5f4b}
+.rcard .where{font-size:13.5px;color:var(--ink-soft)}
+.rcard .qn{font-weight:700;font-size:18px;color:var(--red-dark)}
+.rcard .cmp{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0 10px}
+.cmpbox{border-radius:8px;padding:8px 12px;font-size:15px;display:flex;align-items:center;gap:10px}
+.cmpbox img{height:64px;max-width:90px;object-fit:contain;background:#fff;border-radius:4px}
+.cmpbox.yours{background:var(--wrong-soft)}
+.cmpbox.yours.ok{background:var(--jade-soft)}
+.cmpbox.right{background:var(--jade-soft)}
+.cmpbox small{display:block;color:var(--ink-soft);font-size:12.5px}
+.script{background:var(--paper);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:15px;line-height:1.6}
+.script .zh{font-size:19px}
+.script .py{color:var(--ink-soft);font-style:italic}
+.expl{font-size:15.5px;line-height:1.65}
+.expl b{color:var(--red-dark)}
+.res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(43,29,20,.55);display:none;place-items:center;z-index:50;padding:16px}
+.modal.show{display:grid}
+.modal .box{background:var(--card);border:2px solid var(--gold);border-radius:10px;max-width:440px;width:100%;padding:28px;text-align:center}
+.modal h3{font-size:22px;color:var(--red-dark);margin-bottom:10px}
+.modal p{margin-bottom:20px;line-height:1.6}
+.modal .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:8px;z-index:60;display:none;font-size:15px;max-width:90vw;text-align:center}
+
+@media (max-width:760px){
+  .hero{padding:34px 20px 26px}.hero h1{font-size:38px}.seal{width:58px;height:58px;font-size:20px;top:16px;right:16px}
+  .info{grid-template-columns:repeat(2,1fr)}
+  .pic3,.gallery{gap:8px}.picopt img,.gallery img{height:84px}
+  .txt3{grid-template-columns:1fr}
+  .answers-list{grid-template-columns:1fr}
+  .q{align-items:flex-start}.qnum{width:36px;height:36px;font-size:15px}
+  .qimg{height:90px}
+  .grid40{grid-template-columns:repeat(10,1fr)}
+  .sub-scores{grid-template-columns:1fr}
+  .nav{display:none}
+  .topbar .logo{font-size:20px}
+  .sent{font-size:19px}
+  .part{padding:20px 14px}
+}
+@media print{.topbar,.lantern,.blossom,.mountains,.petal,.res-actions,.filters{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<!-- decorations -->
+<svg class="mountains" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 200 L0 120 Q120 60 220 110 T420 90 Q520 40 640 100 T880 80 Q1000 30 1120 95 T1440 70 L1440 200Z" fill="#c9b48f" opacity=".35"/>
+  <path d="M0 200 L0 150 Q160 100 300 145 T600 130 Q760 90 900 140 T1200 120 Q1320 100 1440 130 L1440 200Z" fill="#9c8462" opacity=".3"/>
+  <path d="M0 200 L0 175 Q200 150 380 172 T760 165 Q960 145 1140 170 T1440 160 L1440 200Z" fill="#6e5a43" opacity=".25"/>
+</svg>
+<svg class="blossom" viewBox="0 0 260 160" aria-hidden="true">
+  <path d="M260 4 C200 20 170 40 140 70 C120 90 90 100 50 104 M175 46 C180 70 172 92 160 110 M120 84 C110 104 112 122 120 140" stroke="#4a3527" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <g fill="#e8909c"><circle cx="140" cy="68" r="9"/><circle cx="52" cy="102" r="8"/><circle cx="160" cy="110" r="8"/><circle cx="120" cy="140" r="7"/><circle cx="200" cy="30" r="8"/><circle cx="96" cy="96" r="6"/></g>
+  <g fill="#f6c5cc"><circle cx="148" cy="62" r="5"/><circle cx="58" cy="98" r="4"/><circle cx="165" cy="105" r="4"/><circle cx="205" cy="26" r="4"/></g>
+  <g fill="#c9993a"><circle cx="140" cy="68" r="2.5"/><circle cx="52" cy="102" r="2"/><circle cx="160" cy="110" r="2"/><circle cx="200" cy="30" r="2"/></g>
+</svg>
+<svg class="lantern l" viewBox="0 0 60 150" aria-hidden="true"><line x1="30" y1="0" x2="30" y2="22" stroke="#6e1210" stroke-width="2"/><rect x="20" y="20" width="20" height="8" rx="2" fill="#c9993a"/><ellipse cx="30" cy="60" rx="27" ry="33" fill="#c8302a"/><path d="M30 27 Q12 60 30 93 M30 27 Q48 60 30 93 M30 27 V93" stroke="#8f1b16" stroke-width="1.5" fill="none"/><text x="30" y="68" text-anchor="middle" font-size="20" fill="#f6d27a" font-family="Ma Shan Zheng,serif">福</text><rect x="20" y="91" width="20" height="8" rx="2" fill="#c9993a"/><path d="M24 99 V135 M28 99 V140 M32 99 V140 M36 99 V135" stroke="#c8302a" stroke-width="2"/></svg>
+<svg class="lantern r" viewBox="0 0 60 150" aria-hidden="true"><line x1="30" y1="0" x2="30" y2="22" stroke="#6e1210" stroke-width="2"/><rect x="20" y="20" width="20" height="8" rx="2" fill="#c9993a"/><ellipse cx="30" cy="60" rx="27" ry="33" fill="#c8302a"/><path d="M30 27 Q12 60 30 93 M30 27 Q48 60 30 93 M30 27 V93" stroke="#8f1b16" stroke-width="1.5" fill="none"/><text x="30" y="68" text-anchor="middle" font-size="20" fill="#f6d27a" font-family="Ma Shan Zheng,serif">考</text><rect x="20" y="91" width="20" height="8" rx="2" fill="#c9993a"/><path d="M24 99 V135 M28 99 V140 M32 99 V140 M36 99 V135" stroke="#c8302a" stroke-width="2"/></svg>
+
+<!-- top bar -->
+<header class="topbar" id="topbar">
+  <div class="in">
+    <div class="logo brush">HSK 一级</div>
+    <div class="timer" id="timer" title="Оставшееся время">40:00</div>
+    <div class="player" id="player">
+      <button id="playBtn" title="Аудио">▶</button>
+      <div class="bar"><i id="abar"></i></div>
+      <div class="t" id="atime">00:00 / 15:23</div>
+    </div>
+    <nav class="nav"><a href="#sec-listen">听力</a><a href="#sec-read">阅读</a></nav>
+    <div class="progress" id="prog">0 / 40</div>
+    <button class="btn finish-btn" id="finishTop">Сдать</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- START -->
+  <section id="start">
+    <div class="hero">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="seal brush">汉语<br>考试</div>
+      <h1 class="brush">欢迎参加 HSK 一级考试！</h1>
+      <div class="sub">Пробный экзамен HSK 1 · вариант H11005</div>
+      <div class="greet">
+        <b>Приветствую вас на экзамене HSK 1!</b> Я очень рада, что мы наконец-то дошли до этого этапа. Вы проделали огромную работу: выучили первые иероглифы, тоны, слова и фразы — и теперь пришло время проверить себя по-настоящему, как на реальном экзамене.<br>
+        Не волнуйтесь, читайте внимательно, слушайте спокойно. У вас всё получится! 加油！
+        <span class="sign">— ваш преподаватель 夏老师 ❤️</span>
+      </div>
+      <div class="info">
+        <div><strong>40</strong><span>заданий</span></div>
+        <div><strong>40</strong><span>минут на всё</span></div>
+        <div><strong>200</strong><span>максимум баллов</span></div>
+        <div><strong>120</strong><span>проходной балл</span></div>
+      </div>
+      <div class="rules">
+        <h3>Как проходит экзамен</h3>
+        <ul>
+          <li><b>听力 · Аудирование</b> — 20 заданий, около 15 минут. Аудио включится сразу после старта и пойдёт подряд, как на экзамене. Каждое задание звучит <b>два раза</b>. Перемотки нет — только пауза.</li>
+          <li><b>阅读 · Чтение</b> — 20 заданий. Все иероглифы подписаны пиньинем.</li>
+          <li>Таймер на 40 минут начнёт отсчёт только после нажатия «Начать». Когда время закончится, работа сдастся автоматически.</li>
+          <li>В конце вы увидите баллы, где ошибки, какой ответ был правильным и почему.</li>
+          <li>Включите звук или наденьте наушники 🎧</li>
+        </ul>
+      </div>
+      <div class="namebox">
+        <label for="sname">Ваше имя:</label>
+        <input id="sname" type="text" placeholder="Например: Анна" maxlength="40">
+      </div>
+      <div class="start-row">
+        <button class="btn btn-red" id="startBtn">开始 · Начать экзамен</button>
+        <button class="btn btn-ghost" id="resumeBtn" style="display:none">Продолжить начатую попытку</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAM -->
+  <section id="exam"></section>
+
+  <!-- RESULTS -->
+  <section id="results"></section>
+</main>
+
+<div class="modal" id="modal"><div class="box"><h3 id="mTitle"></h3><p id="mText"></p><div class="row" id="mRow"></div></div></div>
+<div class="toast" id="toast"></div>
+<audio id="audio" src="audio/listening.mp3" preload="auto"></audio>
+
+<script>
+(function(){
+'use strict';
+
+/* ================= DATA ================= */
+// "汉字:pinyin" tokens separated by spaces; tokens without ":" are printed as is
+const P = {
+  // listening part 3 pictures
+  L3:{A:{img:'p3a',d:'девушка смотрит в бинокль (看见 — увидеть)'},B:{img:'p3b',d:'девушке дарят цветы, она радуется (漂亮、谢谢)'},C:{img:'p3c',d:'знакомство, рукопожатие (это картинка примера)',ex:true},D:{img:'p3d',d:'девушка смотрит на часы (几点 — который час)'},E:{img:'p3e',d:'мужчина говорит по телефону (喂 — алло)'},F:{img:'p3f',d:'люди смотрят в документы / список (名字 — имя)'}},
+  // reading part 2 pictures
+  R2:{A:{img:'q2a',d:'стол и стулья (桌子和椅子)'},B:{img:'q2b',d:'девушка зевает — хочет спать (睡觉)'},C:{img:'q2c',d:'часы показывают десятый час (十点多)'},D:{img:'q2d',d:'протягивают телефонную трубку (电话)'},E:{img:'q2e',d:'девушка читает книгу (это картинка примера)',ex:true},F:{img:'q2f',d:'грустный, недовольный парень (不高兴)'}},
+  // reading part 3 answers
+  R3:{A:{t:'一个:Yí_ge 星期:xīngqī 。',d:'«Одна неделя.»'},B:{t:'明天:Míngtiān 中午:zhōngwǔ 。',d:'«Завтра в полдень.»'},C:{t:'没有:Méiyǒu 。',d:'«Нет (не было).»'},D:{t:'我:Wǒ 女儿:nǚ\'ér 。',d:'«Моя дочь.»'},E:{t:'84 个:gè 。',d:'«84 (человека).»'},F:{t:'好的:Hǎo_de ，谢谢:xièxie ！',d:'«Хорошо, спасибо!» (ответ из примера)',ex:true}},
+  // reading part 4 words
+  R4:{A:{t:'怎么样:zěnmeyàng',d:'как, каков'},B:{t:'认识:rènshi',d:'знать, быть знакомым'},C:{t:'菜:cài',d:'блюдо, кухня'},D:{t:'名字:míngzi',d:'имя (слово из примера)',ex:true},E:{t:'热:rè',d:'горячий, жаркий'},F:{t:'工作:gōngzuò',d:'работать, работа'}}
+};
+
+const Q = [
+ // ---------- LISTENING 1 ----------
+ {n:1,s:'L',p:1,type:'tf',img:'l1',ans:'T',sc:{zh:'一块儿苹果',py:'yí kuàir píngguǒ',ru:'кусочек яблока'},
+  ex:'Прозвучало <b>苹果 píngguǒ — яблоко</b>. На картинке половинка яблока — совпадает, значит <b>✓</b>.'},
+ {n:2,s:'L',p:1,type:'tf',img:'l2',ans:'T',sc:{zh:'写字',py:'xiě zì',ru:'писать (иероглифы)'},
+  ex:'<b>写字 xiě zì</b> — писать иероглифы. Девушка на картинке пишет — совпадает, <b>✓</b>.'},
+ {n:3,s:'L',p:1,type:'tf',img:'l3',ans:'F',sc:{zh:'开出租车',py:'kāi chūzūchē',ru:'водить такси'},
+  ex:'<b>出租车 chūzūchē</b> — такси. А на картинке человек на мотоцикле, такси нет — <b>✗</b>.'},
+ {n:4,s:'L',p:1,type:'tf',img:'l4',ans:'F',sc:{zh:'做饭',py:'zuò fàn',ru:'готовить еду'},
+  ex:'<b>做饭 zuò fàn</b> — готовить еду. На картинке женщина достаёт бельё из стиральной машины, это не готовка — <b>✗</b>.'},
+ {n:5,s:'L',p:1,type:'tf',img:'l5',ans:'F',sc:{zh:'没关系',py:'méi guānxi',ru:'ничего страшного'},
+  ex:'<b>没关系 méi guānxi</b> — «ничего страшного» (ответ на извинение). Мужчина на картинке показывает большой палец — «отлично!», это другой смысл — <b>✗</b>.'},
+ // ---------- LISTENING 2 ----------
+ {n:6,s:'L',p:2,type:'pic3',opts:{A:['r6a','девушка пьёт из чашки'],B:['r6b','девушка делает зарядку'],C:['r6c','девушка ест гамбургер']},ans:'A',
+  sc:{zh:'她喜欢上午喝杯茶。',py:'Tā xǐhuan shàngwǔ hē bēi chá.',ru:'Она любит утром выпить чашку чая.'},
+  ex:'Ключевые слова — <b>喝 hē (пить)</b> и <b>茶 chá (чай)</b>. Пьёт только девушка на картинке A.'},
+ {n:7,s:'L',p:2,type:'pic3',opts:{A:['r7a','девочка с собакой у компьютера'],B:['r7b','девушка гуляет с собакой'],C:['r7c','собака в машине']},ans:'A',
+  sc:{zh:'狗狗，你看电脑里是什么？',py:'Gǒugou, nǐ kàn diànnǎo lǐ shì shénme?',ru:'Пёсик, посмотри, что там в компьютере?'},
+  ex:'Собака есть на всех трёх картинках, поэтому решает слово <b>电脑 diànnǎo — компьютер</b>. Компьютер только на картинке A.'},
+ {n:8,s:'L',p:2,type:'pic3',opts:{A:['r8a','маленький мальчик'],B:['r8b','девушка-школьница'],C:['r8c','пожилой мужчина']},ans:'B',
+  sc:{zh:'我今年十六岁了。',py:'Wǒ jīnnián shíliù suì le.',ru:'Мне в этом году 16 лет.'},
+  ex:'<b>十六岁 shíliù suì</b> — 16 лет. Подходит школьница (B): мальчик A слишком маленький, мужчина C пожилой. Не путайте <b>十六 (16)</b> и <b>六十 (60)</b>!'},
+ {n:9,s:'L',p:2,type:'pic3',opts:{A:['r9a','рис (米饭)'],B:['r9b','рыба (鱼)'],C:['r9c','корзина фруктов (水果)']},ans:'B',
+  sc:{zh:'这是小猫爱吃的东西。',py:'Zhè shì xiǎo māo ài chī de dōngxi.',ru:'Это то, что любит есть котёнок.'},
+  ex:'<b>小猫 xiǎo māo</b> — котёнок, <b>爱吃 ài chī</b> — любит есть. Кошки любят рыбу — B. Здесь нужно понять смысл, а не просто услышать слово.'},
+ {n:10,s:'L',p:2,type:'pic3',opts:{A:['r10a','мужчина с телефоном'],B:['r10b','подарок в коробке'],C:['r10c','девушка со стопкой книг']},ans:'C',
+  sc:{zh:'这些书你都读了吗？',py:'Zhèxiē shū nǐ dōu dú le ma?',ru:'Ты прочитал(а) все эти книги?'},
+  ex:'<b>这些书 zhèxiē shū</b> — «эти книги» (много), <b>读 dú</b> — читать. Стопка книг — на картинке C.'},
+ // ---------- LISTENING 3 ----------
+ {n:11,s:'L',p:3,type:'match',g:'L3',ans:'A',sc:{zh:'男：能看见儿子在哪儿吗？\n女：在那儿，我看见他了。',py:'Néng kànjiàn érzi zài nǎr ma? — Zài nàr, wǒ kànjiàn tā le.',ru:'— Видишь, где сын? — Вон там, я его увидела.'},
+  ex:'Ключ — <b>看见 kànjiàn (увидеть)</b>. Девушка смотрит в бинокль, ищет кого-то — A.'},
+ {n:12,s:'L',p:3,type:'match',g:'L3',ans:'B',sc:{zh:'女：太漂亮了！谢谢你！\n男：不客气。',py:'Tài piàoliang le! Xièxie nǐ! — Bú kèqi.',ru:'— Как красиво! Спасибо тебе! — Не за что.'},
+  ex:'<b>太漂亮了 tài piàoliang le</b> — «очень красиво!» + <b>谢谢</b>. Девушке дарят цветы — B.'},
+ {n:13,s:'L',p:3,type:'match',g:'L3',ans:'D',sc:{zh:'男：现在几点了？\n女：现在六点三十五。',py:'Xiànzài jǐ diǎn le? — Xiànzài liù diǎn sānshíwǔ.',ru:'— Который час? — Сейчас 6:35.'},
+  ex:'<b>几点 jǐ diǎn</b> — «который час». Девушка смотрит на часы — D.'},
+ {n:14,s:'L',p:3,type:'match',g:'L3',ans:'E',sc:{zh:'女：喂，你好，是小李吗？\n男：小李？对不起，我不是小李。',py:'Wèi, nǐ hǎo, shì Xiǎo Lǐ ma? — Xiǎo Lǐ? Duìbuqǐ, wǒ bú shì Xiǎo Lǐ.',ru:'— Алло, здравствуйте, это Сяо Ли? — Сяо Ли? Извините, я не Сяо Ли.'},
+  ex:'<b>喂 wèi</b> — «алло», так начинают телефонный разговор. Мужчина с телефонными трубками — E.'},
+ {n:15,s:'L',p:3,type:'match',g:'L3',ans:'F',sc:{zh:'男：这上面没有我的名字。\n女：有，在这儿呢，下面。',py:'Zhè shàngmiàn méiyǒu wǒ de míngzi. — Yǒu, zài zhèr ne, xiàmiàn.',ru:'— Здесь (наверху) нет моего имени. — Есть, вот здесь, внизу.'},
+  ex:'Ищут <b>名字 míngzi (имя)</b> в бумагах — <b>上面 / 下面</b> (вверху / внизу). Люди смотрят в документы — F.'},
+ // ---------- LISTENING 4 ----------
+ {n:16,s:'L',p:4,type:'txt3',opts:{A:['医生:yīshēng','врач'],B:['学生:xuésheng','студент, ученик'],C:['爸爸:bàba','папа']},ans:'C',
+  sc:{zh:'在飞机上，爸爸听见后面有人叫他。\n问：谁在飞机上？',py:'Zài fēijī shang, bàba tīngjiàn hòumiàn yǒu rén jiào tā. — Shéi zài fēijī shang?',ru:'В самолёте папа услышал, что сзади его кто-то зовёт. Вопрос: кто в самолёте?'},
+  ex:'В самолёте находится <b>爸爸 bàba</b> — папа. Врач и студент в тексте не упоминаются.'},
+ {n:17,s:'L',p:4,type:'txt3',opts:{A:['9270',''],B:['2790',''],C:['7290','']},ans:'B',
+  sc:{zh:'我的电话是二七九零。\n问：他的电话是多少？',py:'Wǒ de diànhuà shì èr qī jiǔ líng. — Tā de diànhuà shì duōshao?',ru:'Мой телефон 2790. Вопрос: какой у него номер?'},
+  ex:'<b>二 èr (2) 七 qī (7) 九 jiǔ (9) 零 líng (0)</b> → 2790. Во всех вариантах одни и те же цифры, важен порядок.'},
+ {n:18,s:'L',p:4,type:'txt3',opts:{A:['书:shū','книга'],B:['苹果:píngguǒ','яблоко'],C:['杯子:bēizi','стакан, чашка']},ans:'A',
+  sc:{zh:'我要这几本书，多少钱？\n问：他在买什么？',py:'Wǒ yào zhè jǐ běn shū, duōshao qián? — Tā zài mǎi shénme?',ru:'Я возьму эти несколько книг, сколько стоит? Вопрос: что он покупает?'},
+  ex:'<b>几本书 jǐ běn shū</b> — несколько книг (本 — счётное слово для книг). Он покупает <b>书</b>.'},
+ {n:19,s:'L',p:4,type:'txt3',opts:{A:['北京:Běijīng','Пекин'],B:['饭馆儿:fànguǎnr','ресторан'],C:['火车站:huǒchēzhàn','вокзал']},ans:'C',
+  sc:{zh:'下午我们去火车站，一个朋友来北京住几天。\n问：他们下午去哪儿？',py:'Xiàwǔ wǒmen qù huǒchēzhàn, yí ge péngyou lái Běijīng zhù jǐ tiān. — Tāmen xiàwǔ qù nǎr?',ru:'Днём мы едем на вокзал — друг приезжает в Пекин на несколько дней. Вопрос: куда они едут днём?'},
+  ex:'Они <b>去火车站</b> — едут на вокзал (встречать друга). <b>北京</b> — ловушка: в Пекин приезжает друг, а они уже там.'},
+ {n:20,s:'L',p:4,type:'txt3',opts:{A:['1 点:diǎn','1 час'],B:['7 点:diǎn','7 часов'],C:['11 点:diǎn','11 часов']},ans:'C',
+  sc:{zh:'现在是十一月十一日十一点十一分。\n问：现在几点了？',py:'Xiànzài shì shíyī yuè shíyī rì shíyī diǎn shíyī fēn. — Xiànzài jǐ diǎn le?',ru:'Сейчас 11 ноября, 11 часов 11 минут. Вопрос: который час?'},
+  ex:'<b>十一点 shíyī diǎn</b> — 11 часов. Помним: <b>月</b> — месяц, <b>日</b> — число, <b>点</b> — час, <b>分</b> — минута.'},
+ // ---------- READING 1 ----------
+ {n:21,s:'R',p:1,type:'tf',img:'d21',word:'先生:xiānsheng',ans:'F',ex:'<b>先生 xiānsheng</b> — господин, мужчина (или муж). На картинке девушка — не совпадает, <b>✗</b>.'},
+ {n:22,s:'R',p:1,type:'tf',img:'d22',word:'坐:zuò',ans:'F',ex:'<b>坐 zuò</b> — сидеть. Мужчина на картинке стоит и тянется рукой вверх — <b>✗</b>.'},
+ {n:23,s:'R',p:1,type:'tf',img:'d23',word:'喝:hē',ans:'T',ex:'<b>喝 hē</b> — пить. Девушка пьёт воду — <b>✓</b>.'},
+ {n:24,s:'R',p:1,type:'tf',img:'d24',word:'衣服:yīfu',ans:'T',ex:'<b>衣服 yīfu</b> — одежда. На картинке рубашка — это одежда, <b>✓</b>.'},
+ {n:25,s:'R',p:1,type:'tf',img:'d25',word:'请:qǐng',ans:'T',ex:'<b>请 qǐng</b> — «пожалуйста, прошу». Девушка делает приглашающий жест рукой — <b>✓</b>.'},
+ // ---------- READING 2 ----------
+ {n:26,s:'R',p:2,type:'match',g:'R2',ans:'B',text:'我:Wǒ 想:xiǎng 睡觉:shuìjiào 了:le ，再见:zàijiàn 。',ru:'Я хочу спать, до свидания.',
+  ex:'<b>睡觉 shuìjiào</b> — спать. Девушка зевает — B.'},
+ {n:27,s:'R',p:2,type:'match',g:'R2',ans:'A',text:'这:Zhè 是:shì 我:wǒ 买:mǎi 的:de 桌子:zhuōzi 和:hé 椅子:yǐzi 。',ru:'Это стол и стулья, которые я купил(а).',
+  ex:'<b>桌子 zhuōzi</b> — стол, <b>椅子 yǐzi</b> — стул. Картинка A.'},
+ {n:28,s:'R',p:2,type:'match',g:'R2',ans:'F',text:'他:Tā 今天:jīntiān 很:hěn 不:bù 高兴:gāoxìng 。',ru:'Он сегодня очень недоволен (невесел).',
+  ex:'<b>他</b> — он (мужчина), <b>不高兴</b> — невесёлый. Грустный парень — F.'},
+ {n:29,s:'R',p:2,type:'match',g:'R2',ans:'C',text:'现在:Xiànzài 十:shí 点:diǎn 多:duō 了:le 。',ru:'Сейчас уже начало одиннадцатого (10 с чем-то).',
+  ex:'<b>十点多</b> — «десять с лишним» — время. Часы показывают ~10:10 — C.'},
+ {n:30,s:'R',p:2,type:'match',g:'R2',ans:'D',text:'王:Wáng 小姐:xiǎojiě ，是:shì 你:nǐ 的:de 电话:diànhuà 。',ru:'Госпожа Ван, вас к телефону.',
+  ex:'<b>你的电话</b> — «тебе звонят / твой телефон». Протягивают трубку — D.'},
+ // ---------- READING 3 ----------
+ {n:31,s:'R',p:3,type:'match',g:'R3',ans:'D',text:'谁:Shéi 会:huì 说:shuō 汉语:Hànyǔ ？',ru:'Кто умеет говорить по-китайски?',
+  ex:'Вопрос <b>谁 shéi — кто?</b> требует в ответе человека: <b>我女儿</b> — «моя дочь» (D).'},
+ {n:32,s:'R',p:3,type:'match',g:'R3',ans:'E',text:'你们:Nǐmen 学校:xuéxiào 有:yǒu 多少:duōshao 老师:lǎoshī ？',ru:'Сколько учителей в вашей школе?',
+  ex:'<b>多少 duōshao — сколько?</b> → ответ с числом: <b>84个</b> (E).'},
+ {n:33,s:'R',p:3,type:'match',g:'R3',ans:'C',text:'昨天:Zuótiān 下:xià 雨:yǔ 了:le 吗:ma ？',ru:'Вчера шёл дождь?',
+  ex:'Вопрос с <b>吗</b> — ответ «да/нет». Отрицание прошедшего действия — <b>没有</b> (C).'},
+ {n:34,s:'R',p:3,type:'match',g:'R3',ans:'B',text:'他们:Tāmen 什么:shénme 时候:shíhou 回来:huílai ？',ru:'Когда они вернутся?',
+  ex:'<b>什么时候 shénme shíhou — когда?</b> → ответ со временем: <b>明天中午</b> — завтра в полдень (B).'},
+ {n:35,s:'R',p:3,type:'match',g:'R3',ans:'A',text:'你:Nǐ 去:qù 北京:Běijīng 学习:xuéxí 几:jǐ 天:tiān ？',ru:'На сколько дней ты едешь учиться в Пекин?',
+  ex:'<b>几天 jǐ tiān — сколько дней?</b> → ответ о сроке: <b>一个星期</b> — одна неделя (A).'},
+ // ---------- READING 4 ----------
+ {n:36,s:'R',p:4,type:'match',g:'R4',ans:'C',text:'我:Wǒ 妈妈:māma 喜欢:xǐhuan 吃:chī 中国:Zhōngguó ___ 。',ru:'Моя мама любит китайскую кухню (досл. «есть китайские блюда»).',
+  ex:'После <b>吃 chī (есть)</b> нужно что-то съедобное: <b>中国菜</b> — китайская кухня (C).'},
+ {n:37,s:'R',p:4,type:'match',g:'R4',ans:'F',text:'我:Wǒ 朋友:péngyou 在:zài 前面:qiánmiàn 那个:nàge 商店:shāngdiàn ___ 。',ru:'Мой друг работает в том магазине впереди.',
+  ex:'Конструкция <b>在 + место + глагол</b>: «в магазине <b>工作</b>» — работает там (F).'},
+ {n:38,s:'R',p:4,type:'match',g:'R4',ans:'E',text:'天气:Tiānqì 很:hěn 冷:lěng ，喝:hē 点儿:diǎnr ___ 水:shuǐ 吧:ba 。',ru:'Погода холодная, выпей немного горячей воды.',
+  ex:'Холодно (<b>冷</b>) → пьём <b>热水</b> — горячую воду (E).'},
+ {n:39,s:'R',p:4,type:'match',g:'R4',ans:'B',dlg:true,text:'女：|你们:Nǐmen 是:shì 怎么:zěnme ___ 的:de ？||男：|她:Tā 是:shì 我:wǒ 大学:dàxué 同学:tóngxué 。',ru:'— Как вы познакомились? — Она моя однокурсница.',
+  ex:'<b>你们是怎么认识的？</b> — «Как вы познакомились?» Ответ про однокурсницу подсказывает <b>认识</b> (B). <b>怎么样</b> сюда не подходит: после 怎么 уже нужен глагол.'},
+ {n:40,s:'R',p:4,type:'match',g:'R4',ans:'A',dlg:true,text:'男：|昨天:Zuótiān 的:de 电影:diànyǐng ___ ？||女：|我:Wǒ 没:méi 去:qù 看:kàn 电影:diànyǐng ，我:wǒ 在:zài 家:jiā 看:kàn 电视:diànshì 了:le 。',ru:'— Как вчерашний фильм? — Я не ходила в кино, я дома смотрела телевизор.',
+  ex:'<b>……怎么样？</b> — «как (тебе) …?» — вопрос-оценка. Вчерашний фильм <b>怎么样</b> (A).'}
+];
+
+const PARTS = [
+  {s:'L',p:1,zh:'第一部分',ru:'Аудирование · Часть 1 (1–5)',instr:'Прослушайте. Если услышанное совпадает с картинкой — выберите ✓, если нет — ✗.'},
+  {s:'L',p:2,zh:'第二部分',ru:'Аудирование · Часть 2 (6–10)',instr:'Прослушайте предложение и выберите подходящую картинку.'},
+  {s:'L',p:3,zh:'第三部分',ru:'Аудирование · Часть 3 (11–15)',instr:'Прослушайте диалог и выберите подходящую картинку (A–F). Картинка C использована в примере.'},
+  {s:'L',p:4,zh:'第四部分',ru:'Аудирование · Часть 4 (16–20)',instr:'Прослушайте предложение и вопрос, выберите правильный ответ.'},
+  {s:'R',p:1,zh:'第一部分',ru:'Чтение · Часть 1 (21–25)',instr:'Совпадает ли слово с картинкой? ✓ — да, ✗ — нет.'},
+  {s:'R',p:2,zh:'第二部分',ru:'Чтение · Часть 2 (26–30)',instr:'Выберите картинку, которая подходит к предложению. Картинка E использована в примере.'},
+  {s:'R',p:3,zh:'第三部分',ru:'Чтение · Часть 3 (31–35)',instr:'Подберите к каждому вопросу подходящий ответ (A–F). Ответ F использован в примере.'},
+  {s:'R',p:4,zh:'第四部分',ru:'Чтение · Часть 4 (36–40)',instr:'Выберите слово, которое подходит на место пропуска. Слово D использовано в примере.'}
+];
+
+/* ================= STATE ================= */
+const KEY='hsk1_H11005_v2';
+const TOTAL=40*60;
+let st={name:'',answers:{},start:null,audioPos:0,done:false};
+const store={
+  get(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}},
+  set(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}},
+  clear(){try{localStorage.removeItem(KEY)}catch(e){}}
+};
+const $=s=>document.querySelector(s);
+const audio=$('#audio');
+let tick=null;
+
+/* ================= HELPERS ================= */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function rb(str){
+  return str.split(' ').map(tok=>{
+    if(tok==='___')return '<span class="blank">（　）</span>';
+    const i=tok.indexOf(':');
+    if(i<0)return esc(tok);
+    const hz=tok.slice(0,i),py=tok.slice(i+1).replace(/_/g,' ');
+    return '<ruby>'+esc(hz)+'<rt>'+esc(py)+'</rt></ruby>';
+  }).join('');
+}
+function plainZh(str){return str.split(' ').map(t=>t==='___'?'（　）':(t.indexOf(':')<0?t:t.slice(0,t.indexOf(':')))).join('')}
+function fmt(s){s=Math.max(0,Math.floor(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',2600)}
+function modal(title,text,buttons){
+  $('#mTitle').textContent=title;$('#mText').innerHTML=text;const row=$('#mRow');row.innerHTML='';
+  buttons.forEach(b=>{const el=document.createElement('button');el.className='btn '+(b.cls||'btn-red');el.textContent=b.t;el.onclick=()=>{$('#modal').classList.remove('show');b.f&&b.f()};row.appendChild(el)});
+  $('#modal').classList.add('show');
+}
+function optLabel(q,k){
+  if(k==null)return '—';
+  if(q.type==='tf')return k==='T'?'✓':'✗';
+  return k;
+}
+
+/* ================= BUILD EXAM ================= */
+function buildExam(){
+  let h='';
+  h+='<div class="section-title" id="sec-listen"><div class="brush">一、听力</div><p>Аудирование · 20 заданий</p></div>';
+  h+='<div class="audio-note">🎧 Аудиозапись запущена (кнопка ▶/❚❚ в красной панели сверху). Сначала звучит музыка и вступление, затем примеры и задания. Каждое задание повторяется два раза. Отвечайте сразу по ходу прослушивания.</div>';
+  PARTS.forEach((pt,idx)=>{
+    if(idx===4)h+='<div class="section-title" id="sec-read"><div class="brush">二、阅读</div><p>Чтение · 20 заданий</p></div>';
+    h+='<div class="part"><h3>'+pt.zh+'</h3><div class="instr"><b>'+pt.ru+'.</b> '+pt.instr+'</div>';
+    h+=partExtras(pt);
+    Q.filter(q=>q.s===pt.s&&q.p===pt.p).forEach(q=>{h+=renderQ(q)});
+    h+='</div>';
+  });
+  h+='<div class="submit-zone"><button class="btn btn-red" id="finishBottom">交卷 · Сдать работу и узнать результат</button></div>';
+  $('#exam').innerHTML=h;
+  $('#exam').addEventListener('click',onChoose);
+  $('#finishBottom').onclick=askFinish;
+  restoreSelections();
+}
+function partExtras(pt){
+  const k=pt.s+pt.p;
+  if(k==='L1')return '<div class="example"><b>例如 (пример):</b> звучит «很高兴» — картинка с улыбающейся девушкой → ✓; звучит «看电影» — мужчина читает газету → ✗.</div>';
+  if(k==='L2')return '<div class="example"><b>例如:</b> «这是我的书。» — книги → A.</div>';
+  if(k==='L3')return gallery('L3')+'<div class="example"><b>例如:</b> 女：你好！ 男：你好！很高兴认识你。 → <b>C</b></div>';
+  if(k==='L4')return '<div class="example"><b>例如:</b> «下午我去商店，我想买一些水果。» 问：她下午去哪里？ → A 商店</div>';
+  if(k==='R1')return '<div class="example"><b>例如:</b> ноутбук — 电视 → ✗; самолёт — 飞机 → ✓.</div>';
+  if(k==='R2')return gallery('R2')+'<div class="example"><b>例如:</b> <span class="zh">'+rb('我:Wǒ 很:hěn 喜欢:xǐhuan 这:zhè 本:běn 书:shū 。')+'</span> → <b>E</b></div>';
+  if(k==='R3'){
+    let s='<div class="answers-list">';
+    Object.entries(P.R3).forEach(([L,o])=>{s+='<div class="'+(o.ex?'ex':'')+'"><b>'+L+'</b>'+rb(o.t)+'</div>'});
+    return s+'</div><div class="example"><b>例如:</b> <span class="zh">'+rb('你:Nǐ 喝:hē 水:shuǐ 吗:ma ？')+'</span> → <b>F</b></div>';
+  }
+  if(k==='R4'){
+    let s='<div class="wordbank">';
+    Object.entries(P.R4).forEach(([L,o])=>{s+='<span class="'+(o.ex?'ex':'')+'"><b>'+L+'</b>'+rb(o.t)+'</span>'});
+    return s+'</div><div class="example"><b>例如:</b> <span class="zh">'+rb('你:Nǐ 叫:jiào 什么:shénme')+'（D）？</span></div>';
+  }
+  return '';
+}
+function gallery(g){
+  let s='<div class="gallery">';
+  Object.entries(P[g]).forEach(([L,o])=>{s+='<figure class="'+(o.ex?'ex':'')+'"><img src="img/'+o.img+'.jpg" alt="'+L+'" loading="lazy"><figcaption>'+L+(o.ex?' <small>(пример)</small>':'')+'</figcaption></figure>'});
+  return s+'</div>';
+}
+function btn(q,k,label,extra){return '<button class="choice '+(extra||'')+'" data-q="'+q.n+'" data-k="'+k+'">'+label+'</button>'}
+function renderQ(q){
+  let body='';
+  if(q.type==='tf'){
+    const left=q.s==='L'
+      ?'<img class="qimg" src="img/'+q.img+'.jpg" alt="картинка '+q.n+'" loading="lazy">'
+      :'<img class="qimg" src="img/'+q.img+'.jpg" alt="картинка '+q.n+'" loading="lazy"><div class="word">'+rb(q.word)+'</div>';
+    body='<div class="rowflex">'+left+'<div class="tf">'+btn(q,'T','✓')+btn(q,'F','✗')+'</div></div>';
+  }else if(q.type==='pic3'){
+    body='<div class="pic3">'+Object.entries(q.opts).map(([k,o])=>'<button class="picopt choice" data-q="'+q.n+'" data-k="'+k+'"><img src="img/'+o[0]+'.jpg" alt="'+k+'" loading="lazy"><span>'+k+'</span></button>').join('')+'</div>';
+  }else if(q.type==='txt3'){
+    body='<div class="txt3">'+Object.entries(q.opts).map(([k,o])=>btn(q,k,'<b>'+k+'</b><span class="zh">'+rb(o[0])+'</span>')).join('')+'</div>';
+  }else if(q.type==='match'){
+    let txt='';
+    if(q.text){
+      if(q.dlg){
+        txt='<div class="sent dlg">'+q.text.split('||').map(line=>{const [who,t]=line.split('|');return '<div><span class="who">'+who+'</span>'+rb(t)+'</div>'}).join('')+'</div>';
+      }else txt='<div class="sent">'+rb(q.text)+'</div>';
+    }else if(q.s==='L'){txt='<div class="instr" style="margin-bottom:8px">Прослушайте диалог '+q.n+' и выберите картинку:</div>'}
+    body=txt+'<div class="letters">'+Object.keys(P[q.g]).map(k=>btn(q,k,k,P[q.g][k].ex?'exl':'')).join('')+'</div>';
+  }
+  return '<div class="q" id="q'+q.n+'"><div class="qnum">'+q.n+'</div><div class="qbody">'+body+'</div></div>';
+}
+function onChoose(e){
+  const b=e.target.closest('[data-q]');if(!b||st.done)return;
+  const n=+b.dataset.q,k=b.dataset.k;
+  st.answers[n]=k;store.set();
+  document.querySelectorAll('[data-q="'+n+'"]').forEach(x=>x.classList.toggle('sel',x.dataset.k===k));
+  document.getElementById('q'+n).classList.add('done');
+  updateProgress();
+}
+function restoreSelections(){
+  Object.entries(st.answers).forEach(([n,k])=>{
+    document.querySelectorAll('[data-q="'+n+'"]').forEach(x=>x.classList.toggle('sel',x.dataset.k===k));
+    const el=document.getElementById('q'+n);el&&el.classList.add('done');
+  });
+  updateProgress();
+}
+function updateProgress(){$('#prog').textContent='Отвечено: '+Object.keys(st.answers).length+' / 40'}
+
+/* ================= AUDIO ================= */
+function setupAudio(){
+  const pb=$('#playBtn');
+  pb.onclick=()=>{if(audio.paused){audio.play().catch(()=>toast('Не удалось включить звук — нажмите ещё раз'))}else audio.pause()};
+  audio.addEventListener('play',()=>pb.textContent='❚❚');
+  audio.addEventListener('pause',()=>pb.textContent='▶');
+  audio.addEventListener('timeupdate',()=>{
+    const d=audio.duration||923;
+    $('#abar').style.width=(audio.currentTime/d*100)+'%';
+    $('#atime').textContent=fmt(audio.currentTime)+' / '+fmt(d);
+    if(Math.abs(audio.currentTime-st.audioPos)>3){st.audioPos=audio.currentTime;store.set()}
+  });
+  audio.addEventListener('ended',()=>{pb.textContent='✓';pb.disabled=true;st.audioPos=99999;store.set();toast('Аудирование закончилось. Переходите к чтению 阅读!');
+    setTimeout(()=>{const r=document.getElementById('sec-read');r&&r.scrollIntoView({behavior:'smooth'})},1500)});
+}
+function startAudio(){
+  if(st.audioPos>=99999){$('#playBtn').textContent='✓';$('#playBtn').disabled=true;$('#abar').style.width='100%';return}
+  const go=()=>{try{audio.currentTime=st.audioPos||0}catch(e){}audio.play().catch(()=>toast('Нажмите ▶ в красной панели, чтобы включить аудио'))};
+  if(audio.readyState>=1)go();else{audio.addEventListener('loadedmetadata',go,{once:true});audio.load();audio.play().catch(()=>{})}
+}
+
+/* ================= TIMER ================= */
+function startTimer(){
+  clearInterval(tick);
+  const upd=()=>{
+    const left=TOTAL-(Date.now()-st.start)/1000;
+    $('#timer').textContent=fmt(left);
+    $('#timer').classList.toggle('warn',left<=300);
+    if(left<=0){clearInterval(tick);toast('Время вышло! Работа сдана автоматически.');finish(true)}
+  };
+  upd();tick=setInterval(upd,1000);
+}
+
+/* ================= FLOW ================= */
+function begin(resume){
+  if(!resume){
+    st={name:($('#sname').value||'').trim(),answers:{},start:Date.now(),audioPos:0,done:false};
+    store.set();
+  }
+  $('#start').style.display='none';$('#exam').style.display='block';$('#topbar').style.display='block';
+  buildExam();startTimer();startAudio();
+  window.scrollTo({top:0});
+}
+function askFinish(){
+  const left=40-Object.keys(st.answers).length;
+  modal('交卷？ Сдать работу?',
+    left>0?'Без ответа осталось заданий: <b>'+left+'</b>. На экзамене за пустой ответ баллов нет — может, стоит угадать?<br>Сдать сейчас?':'Все 40 заданий отвечены. Сдать работу и посмотреть результат?',
+    [{t:'Вернуться',cls:'btn-ghost'},{t:'Сдать',f:()=>finish(false)}]);
+}
+function finish(auto){
+  if(st.done&&!auto&&$('#results').style.display==='block')return;
+  st.done=true;st.end=st.end||Date.now();store.set();
+  clearInterval(tick);audio.pause();
+  $('#exam').style.display='none';$('#topbar').style.display='none';
+  renderResults();
+  $('#results').style.display='block';window.scrollTo({top:0});
+}
+
+/* ================= RESULTS ================= */
+function describe(q,k){
+  if(k==null)return '';
+  if(q.type==='tf')return k==='T'?'совпадает':'не совпадает';
+  if(q.type==='pic3')return q.opts[k][1];
+  if(q.type==='txt3'){const o=q.opts[k];return plainZh(o[0])+(o[1]?' — '+o[1]:'')}
+  if(q.type==='match'){const o=P[q.g][k];if(!o)return '';
+    if(q.g==='R3')return plainZh(o.t)+' '+o.d;
+    if(q.g==='R4')return plainZh(o.t)+' — '+o.d;
+    return o.d}
+  return '';
+}
+function optImg(q,k){
+  if(k==null)return '';
+  if(q.type==='pic3')return 'img/'+q.opts[k][0]+'.jpg';
+  if(q.type==='match'&&(q.g==='L3'||q.g==='R2'))return 'img/'+P[q.g][k].img+'.jpg';
+  return '';
+}
+function renderResults(){
+  const res=Q.map(q=>{const a=st.answers[q.n];return{q,a,ok:a===q.ans,skip:a==null}});
+  const L=res.filter(r=>r.q.s==='L'&&r.ok).length, R=res.filter(r=>r.q.s==='R'&&r.ok).length;
+  const ls=L*5, rs=R*5, tot=ls+rs, pass=tot>=120;
+  const used=Math.min(TOTAL,Math.round(((st.end||Date.now())-st.start)/1000));
+  const C=2*Math.PI*80, off=C*(1-tot/200);
+  const name=st.name?esc(st.name):'';
+  let h='<div class="res-hero"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>';
+  h+='<div class="verdict brush '+(pass?'pass':'fail')+'">'+(pass?'恭喜你！通过了！':'加油！再试一次！')+'</div>';
+  h+='<div class="vru">'+(name?name+', ':'')+(pass?'поздравляю — экзамен HSK 1 сдан! 🎉':'пока не хватило до проходного балла 120. Разберите ошибки ниже — и в следующий раз всё получится!')+'</div>';
+  h+='<div class="score-ring"><svg width="190" height="190" viewBox="0 0 190 190"><circle cx="95" cy="95" r="80" stroke="#eadfc6" stroke-width="14" fill="none"/><circle cx="95" cy="95" r="80" stroke="'+(pass?'#2f7a5b':'#a3201c')+'" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="ringArc" style="transition:stroke-dashoffset 1.4s ease"/></svg><div class="num"><div><b>'+tot+'</b><span>из 200 баллов</span></div></div></div>';
+  h+='<div class="sub-scores"><div><b>'+ls+'</b><span>听力 Аудирование / 100<br>('+L+' из 20 верно)</span></div><div><b>'+rs+'</b><span>阅读 Чтение / 100<br>('+R+' из 20 верно)</span></div><div><b>'+(L+R)+'/40</b><span>верных ответов<br>проходной: 120 баллов</span></div></div>';
+  h+='<div class="res-meta">Время: '+fmt(used)+' из 40:00 · каждое задание = 5 баллов (приблизительно как в реальной шкале HSK)</div></div>';
+
+  // parts table
+  h+='<table class="parts-table"><tr><th>Часть</th><th class="c">Верно</th><th>Результат</th></tr>';
+  PARTS.forEach(pt=>{
+    const rr=res.filter(r=>r.q.s===pt.s&&r.q.p===pt.p),ok=rr.filter(r=>r.ok).length;
+    h+='<tr><td>'+(pt.s==='L'?'听力':'阅读')+' '+pt.zh+' <small style="color:#5b4636">('+pt.ru.split('(')[1]+'</small></td><td class="c"><b>'+ok+'</b> / 5</td><td><div class="minibar"><i style="width:'+(ok/5*100)+'%;background:'+(ok>=3?'#2f7a5b':'#b3261e')+'"></i></div></td></tr>';
+  });
+  h+='</table>';
+
+  h+='<div class="grid40">'+res.map(r=>'<a href="#r'+r.q.n+'" class="'+(r.ok?'ok':r.skip?'skip':'bad')+'" title="Задание '+r.q.n+'">'+r.q.n+'</a>').join('')+'</div>';
+  const bad=res.filter(r=>!r.ok).length;
+  h+='<h2 class="zh" style="color:var(--red-dark);margin-top:10px">解析 · Разбор ответов</h2>';
+  h+='<div class="filters"><button class="choice sel" data-f="all">Все (40)</button><button class="choice" data-f="bad">Только ошибки ('+bad+')</button><button class="choice" data-f="ok">Только верные ('+(40-bad)+')</button></div>';
+  h+='<div id="rlist">';
+  res.forEach(r=>{
+    const q=r.q,cls=r.ok?'ok':r.skip?'skip':'bad';
+    const pt=PARTS.find(p=>p.s===q.s&&p.p===q.p);
+    h+='<div class="rcard '+cls+'" id="r'+q.n+'" data-st="'+(r.ok?'ok':'bad')+'"><div class="head"><span class="qn">№ '+q.n+'</span><span class="tag '+cls+'">'+(r.ok?'✓ Верно':r.skip?'Нет ответа':'✗ Ошибка')+'</span><span class="where">'+(q.s==='L'?'听力':'阅读')+' · '+pt.zh+'</span></div>';
+    if(q.s==='R'&&q.type==='tf')h+='<div class="sent" style="font-size:20px;line-height:2;margin:0">'+rb(q.word)+' <img src="img/'+q.img+'.jpg" alt="" style="height:60px;vertical-align:middle;margin-left:10px"></div>';
+    if(q.s==='R'&&q.text)h+='<div class="script"><div class="zh">'+plainZh(q.text.replace(/\|\|/g,'　').replace(/\|/g,''))+'</div><div>'+q.ru+'</div></div>';
+    if(q.sc)h+='<div class="script"><b>Звучало:</b><div class="zh">'+esc(q.sc.zh).replace(/\n/g,'<br>')+'</div><div class="py">'+esc(q.sc.py)+'</div><div>'+esc(q.sc.ru)+'</div></div>';
+    if(q.s==='L'&&q.type==='tf')h+='<div style="margin:6px 0"><img src="img/'+q.img+'.jpg" alt="" style="height:70px"></div>';
+    h+='<div class="cmp">';
+    const yi=optImg(q,r.a),ci=optImg(q,q.ans);
+    h+='<div class="cmpbox yours '+(r.ok?'ok':'')+'">'+(yi?'<img src="'+yi+'" alt="">':'')+'<div><small>Ваш ответ</small><b>'+optLabel(q,r.a)+'</b> '+(r.skip?'<i>не выбран</i>':esc(describe(q,r.a)))+'</div></div>';
+    if(!r.ok)h+='<div class="cmpbox right">'+(ci?'<img src="'+ci+'" alt="">':'')+'<div><small>Правильный ответ</small><b>'+optLabel(q,q.ans)+'</b> '+esc(describe(q,q.ans))+'</div></div>';
+    h+='</div>';
+    h+='<div class="expl">'+(r.ok?'':'<b>Почему так:</b> ')+q.ex+(!r.ok&&!r.skip&&q.type!=='tf'?'<br><b>Ваш вариант '+r.a+'</b> — '+esc(describe(q,r.a))+' — не подходит по смыслу.':'')+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  h+='<div class="res-actions"><button class="btn btn-ghost" id="printBtn">🖨 Сохранить / распечатать</button><button class="btn btn-red" id="againBtn">再来一次 · Пройти заново</button></div>';
+  $('#results').innerHTML=h;
+  requestAnimationFrame(()=>setTimeout(()=>{const a=document.getElementById('ringArc');a&&(a.style.strokeDashoffset=off)},80));
+  $('#results').querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{
+    $('#results').querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('sel',x===b));
+    const f=b.dataset.f;
+    document.querySelectorAll('#rlist .rcard').forEach(c=>c.style.display=(f==='all'||c.dataset.st===f)?'':'none');
+  });
+  $('#printBtn').onclick=()=>window.print();
+  $('#againBtn').onclick=()=>modal('Начать заново?','Текущий результат будет удалён, таймер и аудио начнутся сначала.',[{t:'Отмена',cls:'btn-ghost'},{t:'Начать заново',f:()=>{store.clear();location.reload()}}]);
+}
+
+/* ================= INIT ================= */
+setupAudio();
+$('#startBtn').onclick=()=>{
+  const saved=store.get();
+  if(saved&&saved.start&&!saved.done){
+    modal('Начать новую попытку?','У вас есть незаконченная попытка. Если начать заново, её ответы удалятся.',[{t:'Продолжить старую',cls:'btn-ghost',f:()=>{st=saved;begin(true)}},{t:'Начать заново',f:()=>{store.clear();begin(false)}}]);
+  }else begin(false);
+};
+$('#finishTop').onclick=askFinish;
+const saved=store.get();
+if(saved&&saved.start){
+  if(saved.done){st=saved;$('#start').style.display='none';renderResults();$('#results').style.display='block'}
+  else if((Date.now()-saved.start)/1000<TOTAL){$('#resumeBtn').style.display='inline-block';$('#sname').value=saved.name||'';$('#resumeBtn').onclick=()=>{st=saved;begin(true)}}
+  else{st=saved;finish(true)}
+}
+// falling petals
+for(let i=0;i<9;i++){const p=document.createElement('div');p.className='petal';p.style.left=(Math.random()*100+10)+'vw';p.style.animationDuration=(12+Math.random()*14)+'s';p.style.animationDelay=(-Math.random()*20)+'s';p.style.transform='scale('+(0.6+Math.random()*0.7)+')';document.body.appendChild(p)}
+})();
+</script>
+</body>
+</html>
